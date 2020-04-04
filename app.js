@@ -1,8 +1,5 @@
 const notes = require("./notes.js")
-const validator = require("validator")
-const chalk = require("chalk")
 const yargs = require("yargs")
-const fs = require("fs")
 
 const log = console.log
 
@@ -30,8 +27,17 @@ yargs.command({
 yargs.command({
     command: 'remove',
     describe: 'remove note',
+    builder: {
+        title: {
+            describe: 'note title',
+            demandOption: true,
+            type: "string"
+        }
+    },
     handler: function(argv) {
-        log('_REMOVE ' + argv[0])
+        log("trying to remove: ")
+        log(argv.title)
+        notes.removeNote(argv.title)
     }
 })
 
@@ -39,7 +45,7 @@ yargs.command({
     command: 'list',
     describe: 'list notes',
     handler: function(argv) {
-        log('_LIST ' + argv[0])
+        log('_LIST ')
     }
 })
 
@@ -47,7 +53,7 @@ yargs.command({
     command: 'read',
     describe: 'read note',
     handler: function(argv) {
-        log('_READ ' + argv[0])
+        log('_READ ')
     }
 })
 
